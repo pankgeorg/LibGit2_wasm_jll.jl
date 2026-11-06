@@ -48,7 +48,7 @@ Every repository the module opens, initializes or clones gets `core.filemode = f
 
 **`libgit2.a`** is the library alone, for linking with wasi-libc into a module of your own.
 
-**Build configuration.** libgit2's WASI changes are 9 small patches: the `wasi-v1.9.7` branch of [pankgeorg/libgit2](https://github.com/pankgeorg/libgit2), proposed upstream as `wasi-main`.
+**Build configuration.** libgit2's WASI changes are 10 small patches: the `wasi-v1.9.7` branch of [pankgeorg/libgit2](https://github.com/pankgeorg/libgit2), proposed upstream as `wasi-main`.
 - No threads.
 - No TLS backend: https is the module's transport over the host's fetch.
 - No SSH.
