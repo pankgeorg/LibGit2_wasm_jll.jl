@@ -4,7 +4,7 @@
 
 [WasmCompat.jl](https://github.com/pankgeorg/WasmCompat.jl)'s `WasmCompatLibGit2Ext` runs Julia's `LibGit2` standard library on this module, so that a program compiled to WebAssembly (Pkg, for one) clones, fetches and checks out with libgit2 itself.
 
-> **Interim package.** This package stands in for `LibGit2_wasm_jll` until its Yggdrasil recipe, `L/LibGit2_wasm` (branch [`wasm-libgit2`](https://github.com/pankgeorg/Yggdrasil/tree/wasm-libgit2/L/LibGit2_wasm) of pankgeorg/Yggdrasil, for JuliaPackaging/Yggdrasil after [#15468](https://github.com/JuliaPackaging/Yggdrasil/pull/15468)), is merged and registered.
+> **Interim package.** This package stands in for `LibGit2_wasm_jll` until its Yggdrasil recipe (`L/LibGit2_wasm`, [JuliaPackaging/Yggdrasil#15481](https://github.com/JuliaPackaging/Yggdrasil/pull/15481), which depends on [#15468](https://github.com/JuliaPackaging/Yggdrasil/pull/15468)) is merged and registered.
 >
 > It is what Yggdrasil's registration would generate from that recipe:
 > - the same name, and the same UUID (`af6da55f-a25c-5e7a-9586-6a6edd93f4c4`, BinaryBuilder's `jll_uuid("LibGit2_wasm_jll")`);
@@ -48,7 +48,7 @@ Every repository the module opens, initializes or clones gets `core.filemode = f
 
 **`libgit2.a`** is the library alone, for linking with wasi-libc into a module of your own.
 
-**Build configuration.** libgit2's WASI changes are 10 small patches: the `wasi-v1.9.7` branch of [pankgeorg/libgit2](https://github.com/pankgeorg/libgit2), proposed upstream as `wasi-main`.
+**Build configuration.** libgit2's WASI changes are 10 small patches: the `wasi-v1.9.7` branch of [pankgeorg/libgit2](https://github.com/pankgeorg/libgit2), proposed upstream as [libgit2/libgit2#7464](https://github.com/libgit2/libgit2/pull/7464).
 - No threads.
 - No TLS backend: https is the module's transport over the host's fetch.
 - No SSH.
@@ -91,7 +91,7 @@ The artifact is platform-independent (`AnyPlatform`): the same bytes on every ho
 |---|---|
 | Source | https://github.com/libgit2/libgit2/archive/refs/tags/v1.9.7.tar.gz, sha256 `1a4fbe7589e814777ae76b64734ad80f4ecad22cd33a22682a2aaea4ae5375e7` |
 | Patches | https://github.com/pankgeorg/libgit2/tree/wasi-v1.9.7 (`git format-patch v1.9.7..wasi-v1.9.7`, in the tarball's `share/src/LibGit2_wasm/patches/`) |
-| Recipe | [pankgeorg/Yggdrasil@`wasm-libgit2`](https://github.com/pankgeorg/Yggdrasil/tree/wasm-libgit2/L/LibGit2_wasm) (`L/LibGit2_wasm/build_tarballs.jl`, `bundled/`, `platforms/wasm.jl`): the same patches, wrapper, flags and toolchain pins |
+| Recipe | [JuliaPackaging/Yggdrasil#15481](https://github.com/JuliaPackaging/Yggdrasil/pull/15481) (branch [pankgeorg/Yggdrasil@`wasm-libgit2`](https://github.com/pankgeorg/Yggdrasil/tree/wasm-libgit2/L/LibGit2_wasm)) (`L/LibGit2_wasm/build_tarballs.jl`, `bundled/`, `platforms/wasm.jl`): the same patches, wrapper, flags and toolchain pins |
 | Builder | **CMake**, the recipe's steps by hand (`share/src/LibGit2_wasm/build/build-all.sh`), on aarch64 Linux: BinaryBuilder's x86_64 sandbox does not run on that host. Reproducible: two builds from different source trees gave byte-identical modules and archives, and the tarball is byte-identical when repackaged |
 | Compiler | clang 23.1.0 of wasi-sdk 34.0 (llvm-project `895aa2c896ada719451be2e3673c83da8ddf1141`) |
 | Sysroot | `wasi-sysroot-34.0.tar.gz`, sha256 `9d813544eeebe38b7b8f2244ed591de46b6db812c6dd1a257ff9f0d2a905a2be` |
