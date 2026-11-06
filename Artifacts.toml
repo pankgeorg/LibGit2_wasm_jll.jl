@@ -1,0 +1,6 @@
+[LibGit2_wasm]
+git-tree-sha1 = "8dc091bfae9e3c84faefcdf929d837b22cc37d9b"
+
+    [[LibGit2_wasm.download]]
+    url = "https://github.com/pankgeorg/LibGit2_wasm_jll.jl/releases/download/LibGit2-v1.9.7+0/LibGit2_wasm.v1.9.7.any.tar.gz"
+    sha256 = "586e4fc97f96ad1df9c4c43e2afa3cb0668818c5703305698eea7e4ee41ca1da"
